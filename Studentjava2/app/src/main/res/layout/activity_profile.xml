@@ -1,51 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".ProfileActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student Profile"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:paddingBottom="12dp"/>
+<TextView
+android:id="@+id/textViewProfileName"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="18sp"
+android:text="Name: " />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name:"
-        android:textStyle="bold"/>
+<TextView
+android:id="@+id/textViewProfileId"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:textSize="18sp"
+android:text="Student ID: " />
 
-    <TextView
-        android:id="@+id/textViewProfileName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student ID:"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/textViewProfileId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Research Topic:"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/textViewProfileTopic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""/>
-
-</LinearLayout>
+<TextView
+android:id="@+id/textViewProfileTopic"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="8dp"
+android:textSize="18sp"
+android:text="Research Topic: " />
+    </LinearLayout>

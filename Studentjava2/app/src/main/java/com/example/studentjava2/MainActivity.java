@@ -1,45 +1,57 @@
-package com.example.studentapp;
+package com.example.studentjava2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText etName, etId, etTopic;
-    private Button btnSubmit;
+    EditText editTextName, editTextStudentId, editTextResearchTopic;
+    Button buttonSubmit;
+
+    // Define keys for Intent extras (good practice)
+    public static final String EXTRA_NAME = "com.yourdomain.yourappname.EXTRA_NAME";
+    public static final String EXTRA_STUDENT_ID = "com.yourdomain.yourappname.EXTRA_STUDENT_ID";
+    public static final String EXTRA_RESEARCH_TOPIC = "com.yourdomain.yourappname.EXTRA_RESEARCH_TOPIC";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get references to UI elements
-        etName = findViewById(R.id.et_name);
-        etId = findViewById(R.id.et_age);  // Assuming ID field uses same reference
-        etTopic = findViewById(R.id.et_email);  // Assuming Topic input uses email reference
-        btnSubmit = findViewById(R.id.btn_submit);
+        editTextName = findViewById(R.id.editTextName);
+        editTextStudentId = findViewById(R.id.editTextStudentId);
+        editTextResearchTopic = findViewById(R.id.editTextResearchTopic);
+        buttonSubmit = findViewById(R.id.buttonSubmit);
 
-        // Set OnClickListener for the button
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Retrieve text from input fields
-                String name = etName.getText().toString();
-                String id = etId.getText().toString();
-                String topic = etTopic.getText().toString();
+                String name = editTextName.getText().toString().trim();
+                String studentId = editTextStudentId.getText().toString().trim();
+                String researchTopic = editTextResearchTopic.getText().toString().trim();
+
+                // Basic validation (optional, but good practice)
+                if (name.isEmpty() || studentId.isEmpty()) {
+                    // You could show a Toast message here
+                    editTextName.setError("Name cannot be empty");
+                    editTextStudentId.setError("ID cannot be empty");
+                    return;
+                }
 
                 // Create an Intent to start ProfileActivity
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("USER_NAME", name);
-                intent.putExtra("USER_ID", id);
-                intent.putExtra("USER_TOPIC", topic);
 
-                // Start ProfileActivity
+                // Put the data into the Intent
+                intent.putExtra(EXTRA_NAME, name);
+                intent.putExtra(EXTRA_STUDENT_ID, studentId);
+                intent.putExtra(EXTRA_RESEARCH_TOPIC, researchTopic);
+
+                // Start the ProfileActivity
                 startActivity(intent);
             }
         });
