@@ -1,48 +1,61 @@
-package com.example.userform;
+package com.example.userinterfaceinputhandlinginandroid;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editTextName;
-    RadioGroup radioGroupGender;
-    CheckBox checkBoxReading, checkBoxSports, checkBoxCoding;
-    Button buttonSubmit;
+    private EditText editTextName;
+    private RadioGroup radioGroupGender;
+    private CheckBox checkBoxReading, checkBoxSports, checkBoxCoding;
+    private Button buttonSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize views
+        initializeUI();
+        setButtonClickListener();
+    }
+
+    private void initializeUI() {
         editTextName = findViewById(R.id.editTextName);
         radioGroupGender = findViewById(R.id.radioGroupGender);
         checkBoxReading = findViewById(R.id.checkBoxReading);
         checkBoxSports = findViewById(R.id.checkBoxSports);
         checkBoxCoding = findViewById(R.id.checkBoxCoding);
-        buttonSubmit = findViewById(R.id.buttonSubmitForm);
+        buttonSubmit = findViewById(R.id.buttonSubmitForm); // Corrected initialization
+    }
 
-        // Set button click listener
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = editTextName.getText().toString().trim();
-                String gender = "";
-                int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
+    private void setButtonClickListener() {
+        buttonSubmit.setOnClickListener(view -> displayUserInfo());
+    }
 
-                if (selectedGenderId != -1) {
-                    RadioButton selectedRadio = findViewById(selectedGenderId);
-                    gender = selectedRadio.getText().toString();
-                }
+    private void displayUserInfo() {
+        String name = editTextName.getText().toString().trim();
+        String gender = getSelectedGender();
+        String hobbies = getSelectedHobbies();
 
-                StringBuilder hobbies = new StringBuilder();
-                if (checkBoxReading.isChecked()) hobbies.append("Reading ");
-                if (checkBoxSports.isChecked()) hobbies.append("Sports ");
-                if (checkBoxCoding.isChecked()) hobbies.append("Coding ");
+        String message = String.format("Name: %s\nGender: %s\nHobbies: %s", name, gender, hobbies);
 
-                String message = "Name: " + name + "\nGender: " + gender + "\nHobbies: " + hobbies.toString().trim();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
-                Toast.makeText(MainActivity.this,
+    private String getSelectedGender() {
+        int selectedGenderId = radioGroupGender.getCheckedRadioButtonId();
+        if (selectedGenderId != -1) {
+            return ((RadioButton) findViewById(selectedGenderId)).getText().toString();
+        }
+        return "Not specified";
+    }
+
+    private String getSelectedHobbies() {
+        StringBuilder hobbies = new StringBuilder();
+        if (checkBoxReading.isChecked()) hobbies.append("Reading ");
+        if (checkBoxSports.isChecked()) hobbies.append("Sports ");
+        if (checkBoxCoding.isChecked()) hobbies.append("Coding ");
+        return hobbies.toString().trim();
+    }
+}
